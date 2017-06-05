@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="true">
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossa"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossb"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossc"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossd"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bosse"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossf"/>
+    <item
+        android:duration="10"
+        android:drawable="@drawable/bossg"/>
+    <item
+        android:duration="20"
+        android:drawable="@drawable/bossh"/>
+</animation-list>
