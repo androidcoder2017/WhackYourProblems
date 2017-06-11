@@ -430,9 +430,9 @@ public class Level1 extends AppCompatActivity {
 
                     builder.show();
                     runTimer.cancel();
-                } else if (score == 5) {
+                } else if (score == 30) {
                     DBHelper db = new DBHelper(Level1.this);
-                    db.saveData(1,"5");
+                    db.saveData(1,"30");
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level1.this);
                     builder.setTitle("Level 1 Complete!");
                     builder.setMessage("You have won! You have unlock level 2! You can proceed to Level 2 or go back.");
@@ -441,7 +441,6 @@ public class Level1 extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(Level1.this, LevelPage.class);
                             startActivity(intent);
-
                             finish();
                         }
                     });

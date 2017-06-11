@@ -47,9 +47,7 @@ public class LevelPage extends AppCompatActivity {
         DBHelper db = new DBHelper(LevelPage.this);
         HashMap<String,String> data = db.getData();
         final String level1Score = data.get("LEVEL1");
-        String level2Score = data.get("LEVEL2");
-
-        Log.e("LevelPage: ", level1Score);
+        final String level2Score = data.get("LEVEL2");
 
         btnLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +58,10 @@ public class LevelPage extends AppCompatActivity {
             }
         });
 
-        if (level1Score != null && level1Score.equals("5")) {
+        if (level1Score != null && level1Score.equals("30")) {
         btnLevel2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("LevelPage: ", "Inside button2 onclic");
                     clickSound.start();
                     Intent intent = new Intent(LevelPage.this, Level2.class);
                     startActivity(intent);
@@ -76,9 +73,8 @@ public class LevelPage extends AppCompatActivity {
             btnLevel2.setEnabled(false);
         }
 
-        Intent i2 = getIntent();
-        int score2 = i2.getIntExtra("SCORE2", 0);
-        if (score2 == 30) {
+
+        if (level2Score != null && level2Score.equals("35")) {
             btnLevel3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

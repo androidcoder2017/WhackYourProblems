@@ -15,7 +15,6 @@ import java.util.List;
  */
 
 public class DBHelper extends SQLiteOpenHelper {
-    private static final String TAG = "Database";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Level";
     private static final String USERTABLE = "USER_INFO";
@@ -36,7 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.e(TAG,"Inside onCreate: creating table");
         db.execSQL(CREATE_TABLE_USER);
     }
 
@@ -78,7 +76,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.e(TAG,"Inside onUpgrade");
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
