@@ -35,7 +35,6 @@ public class Level1 extends AppCompatActivity {
 
     Random r;
 
-    Runnable runnable;
     int score = 0, fps = 1000, left = 10, tempileft = 0;
 
     int which = 0;
@@ -436,15 +435,7 @@ public class Level1 extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level1.this);
                     builder.setTitle("Level 1 Complete!");
                     builder.setMessage("You have won! You have unlock level 2! You can proceed to Level 2 or go back.");
-                    builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Level1.this, Level2.class);
-                            startActivity(intent);
-                        }
-                    });
-
-                    builder.setNeutralButton("Back", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(Level1.this, LevelPage.class);
@@ -453,6 +444,7 @@ public class Level1 extends AppCompatActivity {
                             finish();
                         }
                     });
+
                     builder.setCancelable(false);
                     builder.show();
                     runTimer.cancel();
@@ -465,13 +457,11 @@ public class Level1 extends AppCompatActivity {
             }
         } ,fps);
 
-
     }
 
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Level1.this);
-
         builder.setTitle("Exit");
         builder.setMessage("Are you sure you want to exit?");
         builder.setCancelable(false);

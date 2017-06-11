@@ -1,13 +1,17 @@
 package com.example.a15056112.whackyourproblems;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.HashMap;
 
 public class LevelPage extends AppCompatActivity {
     Button btnInfo, btnBack, btnLevel1, btnLevel2, btnLevel3, btnLevel4, btnLevel5, btnLevel6, btnLevel7, btnLevel8,
@@ -40,7 +44,11 @@ public class LevelPage extends AppCompatActivity {
         btnLevel12 = (Button) findViewById(R.id.button12);
         btnLevel13 = (Button) findViewById(R.id.button13);
 
-
+        DBHelper db = new DBHelper(LevelPage.this);
+        db.saveData(1,"5");
+        HashMap<String,String> data = db.getData();
+        String level1Score = data.get("LEVEL1");
+        String level2Score = data.get("LEVEL2");
 
         btnLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,13 +59,10 @@ public class LevelPage extends AppCompatActivity {
             }
         });
 
-        Intent i = getIntent();
-        score = i.getIntExtra("SCORE", 5);
-        if (score == 5) {
+        if (level1Score != null && level1Score.equals("5")) {
         btnLevel2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Log.e("LevelActivity", "Value of score: " + score);
                     clickSound.start();
                     Intent intent = new Intent(LevelPage.this, Level2.class);
                     startActivity(intent);
@@ -67,6 +72,22 @@ public class LevelPage extends AppCompatActivity {
 
         } else {
             btnLevel2.setEnabled(false);
+        }
+
+        Intent i2 = getIntent();
+        int score2 = i2.getIntExtra("SCORE2", 0);
+        if (score2 == 30) {
+            btnLevel3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickSound.start();
+                    Intent intent = new Intent(LevelPage.this, Level3.class);
+                    startActivity(intent);
+                    btnLevel3.setEnabled(true);
+                }
+            });
+        } else {
+            btnLevel3.setEnabled(false);
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +113,6 @@ public class LevelPage extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
-
 
 
 }

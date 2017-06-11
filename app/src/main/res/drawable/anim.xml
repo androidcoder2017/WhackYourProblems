@@ -22,6 +22,6 @@
         android:duration="10"
         android:drawable="@drawable/bossg"/>
     <item
-        android:duration="20"
+        android:duration="10"
         android:drawable="@drawable/bossh"/>
 </animation-list>
