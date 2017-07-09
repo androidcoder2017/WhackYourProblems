@@ -1,5 +1,6 @@
 package com.example.a15056112.whackyourproblems;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -143,6 +144,7 @@ public class Level1 extends AppCompatActivity {
                         });
 
                         builder.show();
+                        runTimer.cancel();
                     }
                 }.start();
 
@@ -429,10 +431,11 @@ public class Level1 extends AppCompatActivity {
                     });
 
                     builder.show();
-                    runTimer.cancel();
+                    runTimer.onFinish();
                 } else if (score == 30) {
-                    DBHelper db = new DBHelper(Level1.this);
-                    db.saveData(1,"30");
+                    /*DBHelper db = new DBHelper(Level1.this);
+                    db.saveData(1,"30"); */
+                    saveData("1", score);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level1.this);
                     builder.setTitle("Level 1 Complete!");
                     builder.setMessage("You have won! You have unlock level 2! You can proceed to Level 2 or go back.");
@@ -457,6 +460,13 @@ public class Level1 extends AppCompatActivity {
             }
         } ,fps);
 
+    }
+
+    private void saveData(String level, int score) {
+        SharedPreferences pref = this.getSharedPreferences("score", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putInt(level,score);
+        edit.commit();
     }
 
     @Override

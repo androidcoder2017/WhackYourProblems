@@ -1,5 +1,6 @@
 package com.example.a15056112.whackyourproblems;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -44,10 +45,12 @@ public class LevelPage extends AppCompatActivity {
         btnLevel12 = (Button) findViewById(R.id.button12);
         btnLevel13 = (Button) findViewById(R.id.button13);
 
-        DBHelper db = new DBHelper(LevelPage.this);
-        HashMap<String,String> data = db.getData();
-        final String level1Score = data.get("LEVEL1");
-        final String level2Score = data.get("LEVEL2");
+        /*DBHelper db = new DBHelper(LevelPage.this);
+        HashMap<String,String> data = db.getData(); */
+
+        final int level1Score = getLevelScore("1");
+        final int level2Score = getLevelScore("2");
+        final int level3Score = getLevelScore("3");
 
         btnLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +61,15 @@ public class LevelPage extends AppCompatActivity {
             }
         });
 
-        if (level1Score != null && level1Score.equals("30")) {
+        if (level1Score == 30) {
+            btnLevel2.setEnabled(true);
         btnLevel2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     clickSound.start();
                     Intent intent = new Intent(LevelPage.this, Level2.class);
                     startActivity(intent);
-                    btnLevel2.setEnabled(true);
+
                 }
             });
 
@@ -73,20 +77,51 @@ public class LevelPage extends AppCompatActivity {
             btnLevel2.setEnabled(false);
         }
 
-
-        if (level2Score != null && level2Score.equals("35")) {
+        if (level2Score == 35) {
+            btnLevel3.setEnabled(true);
             btnLevel3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickSound.start();
                     Intent intent = new Intent(LevelPage.this, Level3.class);
                     startActivity(intent);
-                    btnLevel3.setEnabled(true);
+
                 }
             });
         } else {
             btnLevel3.setEnabled(false);
         }
+
+        if (level3Score == 5) {
+            btnLevel4.setEnabled(true);
+            btnLevel4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickSound.start();
+                    Intent intent = new Intent(LevelPage.this, Level4.class);
+                    startActivity(intent);
+
+                }
+            });
+        } else {
+            btnLevel4.setEnabled(false);
+        }
+
+//        if (level4Score != null && level4Score.equals("5")) {
+//            btnLevel5.setEnabled(true);
+//            btnLevel5.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    clickSound.start();
+//                    Intent intent = new Intent(LevelPage.this, Level5.class);
+//                    startActivity(intent);
+//
+//                }
+//            });
+//        } else {
+//            btnLevel5.setEnabled(false);
+//        }
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +140,12 @@ public class LevelPage extends AppCompatActivity {
             }
         });
 
+    }
+
+    public int getLevelScore(String level) {
+        SharedPreferences sharedPref = getSharedPreferences("score", Context.MODE_PRIVATE);
+        int levelScore = sharedPref.getInt(level, 0);
+        return levelScore;
     }
 
     @Override

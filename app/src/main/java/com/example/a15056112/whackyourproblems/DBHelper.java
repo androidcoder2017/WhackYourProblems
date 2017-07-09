@@ -21,10 +21,19 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String LEVEL1 = "LEVEL1";
     private static final String LEVEL2 = "LEVEL2";
+    private static final String LEVEL3 = "LEVEL3";
+    private static final String LEVEL4 = "LEVEL4";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "
+            + USERTABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + LEVEL1 + " TEXT,"
+            + LEVEL2 + " TEXT,"
+            + LEVEL3 + " TEXT,"
+            + LEVEL4 + " TEXT " + ");";
+
+    /*private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "
             + USERTABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + LEVEL1 + " TEXT,"
-            + LEVEL2 + " TEXT"+");";
+            + LEVEL2 + " TEXT"+");"; */
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + USERTABLE;
@@ -49,6 +58,12 @@ public class DBHelper extends SQLiteOpenHelper {
             case 2:
                 data.put(LEVEL2,score);
                 break;
+            case 3:
+                data.put(LEVEL3,score);
+                break;
+            case 4:
+                data.put(LEVEL4,score);
+                break;
         }
         db.insert(USERTABLE,null,data);
         db.close();
@@ -67,6 +82,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 scoreMap.put(LEVEL1,cursor.getString(cursor.getColumnIndex(LEVEL1)));
                 scoreMap.put(LEVEL2,cursor.getString(cursor.getColumnIndex(LEVEL2)));
+                scoreMap.put(LEVEL3,cursor.getString(cursor.getColumnIndex(LEVEL3)));
+                scoreMap.put(LEVEL4,cursor.getString(cursor.getColumnIndex(LEVEL4)));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -74,9 +91,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+
 }

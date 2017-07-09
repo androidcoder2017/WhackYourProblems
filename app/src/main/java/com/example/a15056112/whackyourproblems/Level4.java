@@ -1,14 +1,11 @@
 package com.example.a15056112.whackyourproblems;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +19,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Level2 extends AppCompatActivity {
-
+public class Level4 extends AppCompatActivity {
     TextView tvLives, tvTime, tvScore;
     Button btnStart, btnBack;
     ImageView ivBoss1,ivBoss2,ivBoss3,ivBoss4,ivBoss5,ivBoss6,ivBoss7,ivBoss8,ivBoss9,ivBoss10,ivBoss11,ivBoss12;
@@ -31,7 +27,7 @@ public class Level2 extends AppCompatActivity {
 
     Random r;
 
-    int score = 0, fps = 900, left = 10, tempileft = 0;
+    int score = 0, fps = 750, left = 10, tempileft = 0;
 
     int which = 0;
     int whichsave = 0;
@@ -43,7 +39,7 @@ public class Level2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level2);
+        setContentView(R.layout.activity_level4);
 
         getSupportActionBar().hide();
 
@@ -114,10 +110,10 @@ public class Level2 extends AppCompatActivity {
                     public void run() {
                         gamePlay();
                     }
-                } ,1000);
+                } ,750);
                 btnStart.setEnabled(false);
 
-                runTimer = new CountDownTimer(60000, 1000) {
+                runTimer = new CountDownTimer(50000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
@@ -127,7 +123,7 @@ public class Level2 extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
                         builder.setTitle("Time's up!");
                         builder.setMessage("Unfortunately, you lost the game! But do not worry, try again till you succeed!");
                         builder.setCancelable(false);
@@ -294,7 +290,7 @@ public class Level2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clickSound.start();
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
 
                 builder.setTitle("Exit");
                 builder.setMessage("Are you sure you want to exit?");
@@ -321,51 +317,51 @@ public class Level2 extends AppCompatActivity {
         } while (whichsave == which);
         whichsave = which;
 
-        if (which == 1) {
+        if(which == 1) {
             ivBoss1.setImageDrawable(an);
             ivBoss1.setVisibility(View.VISIBLE);
             ivBoss1.setEnabled(true);
-        } else if (which == 2) {
+        } else if(which == 2) {
             ivBoss2.setImageDrawable(an);
             ivBoss2.setVisibility(View.VISIBLE);
             ivBoss2.setEnabled(true);
-        } else if (which == 3) {
+        } else if(which == 3) {
             ivBoss3.setImageDrawable(an);
             ivBoss3.setVisibility(View.VISIBLE);
             ivBoss3.setEnabled(true);
-        } else if (which == 4) {
+        } else if(which == 4) {
             ivBoss4.setImageDrawable(an);
             ivBoss4.setVisibility(View.VISIBLE);
             ivBoss4.setEnabled(true);
-        } else if (which == 5) {
+        } else if(which == 5) {
             ivBoss5.setImageDrawable(an);
             ivBoss5.setVisibility(View.VISIBLE);
             ivBoss5.setEnabled(true);
-        } else if (which == 6) {
+        } else if(which == 6) {
             ivBoss6.setImageDrawable(an);
             ivBoss6.setVisibility(View.VISIBLE);
             ivBoss6.setEnabled(true);
-        } else if (which == 7) {
+        } else if(which == 7) {
             ivBoss7.setImageDrawable(an);
             ivBoss7.setVisibility(View.VISIBLE);
             ivBoss7.setEnabled(true);
-        } else if (which == 8) {
+        } else if(which == 8) {
             ivBoss8.setImageDrawable(an);
             ivBoss8.setVisibility(View.VISIBLE);
             ivBoss8.setEnabled(true);
-        } else if (which == 9) {
+        } else if(which == 9) {
             ivBoss9.setImageDrawable(an);
             ivBoss9.setVisibility(View.VISIBLE);
             ivBoss9.setEnabled(true);
-        } else if (which == 10) {
+        } else if(which == 10) {
             ivBoss10.setImageDrawable(an);
             ivBoss10.setVisibility(View.VISIBLE);
             ivBoss10.setEnabled(true);
-        } else if (which == 11) {
+        } else if(which == 11) {
             ivBoss11.setImageDrawable(an);
             ivBoss11.setVisibility(View.VISIBLE);
             ivBoss11.setEnabled(true);
-        } else if (which == 12) {
+        } else if(which == 12) {
             ivBoss12.setImageDrawable(an);
             ivBoss12.setVisibility(View.VISIBLE);
             ivBoss12.setEnabled(true);
@@ -404,15 +400,15 @@ public class Level2 extends AppCompatActivity {
                 ivBoss11.setEnabled(false);
                 ivBoss12.setEnabled(false);
 
-                if (tempileft == 0) {
+                if(tempileft == 0) {
                     left = left - 1;
-                    tvLives.setText(" " + left);
+                    tvLives.setText(" "  + left);
                 } else if (tempileft == 1) {
                     tempileft = 0;
                 }
 
                 if (left == 0) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
 
                     builder.setTitle("Game Over");
                     builder.setMessage("You lost! Don't worry, you can always try again!");
@@ -427,17 +423,15 @@ public class Level2 extends AppCompatActivity {
 
                     builder.show();
                     runTimer.onFinish();
-                } else if (score == 35) {
-                    /*DBHelper db = new DBHelper(Level2.this);
-                    db.saveData(2,"35"); */
-                    saveData("2", score);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
-                    builder.setTitle("Level 2 Complete!");
-                    builder.setMessage("You have won! You have unlock level 3! You can proceed to Level 3 or go back.");
+                } else if (score == 5) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
+                    builder.setTitle("Level 4 Complete!");
+                    builder.setMessage("You have won! You have unlock level 5!");
                     builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Level2.this, LevelPage.class);
+                            Intent intent = new Intent(Level4.this, LevelPage.class);
                             startActivity(intent);
                             finish();
                         }
@@ -446,27 +440,20 @@ public class Level2 extends AppCompatActivity {
                     builder.setCancelable(false);
                     builder.show();
                     runTimer.cancel();
-                } else {
+                }
+                else {
                     gamePlay();
                 }
 
 
             }
-        }, fps);
+        } ,fps);
 
-    }
-
-    private void saveData(String level, int score) {
-        SharedPreferences pref = this.getSharedPreferences("score", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pref.edit();
-        edit.putInt(level,score);
-        edit.commit();
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
         builder.setTitle("Exit");
         builder.setMessage("Are you sure you want to exit?");
         builder.setCancelable(false);
@@ -479,5 +466,4 @@ public class Level2 extends AppCompatActivity {
         builder.setNeutralButton("Cancel", null);
         builder.show();
     }
-
 }
