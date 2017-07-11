@@ -16,27 +16,12 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Level";
-    private static final String USERTABLE = "USER_INFO";
-    private static final String KEY_ID = "id";
-    private static final String LEVEL1 = "LEVEL1";
-    private static final String LEVEL2 = "LEVEL2";
-    private static final String LEVEL3 = "LEVEL3";
-    private static final String LEVEL4 = "LEVEL4";
+    private static final String DATABASE_NAME = "highscore.db";
+    private static final String TABLE_HIGHSCORE = "highscore";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_SCORE = "score";
 
-    private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "
-            + USERTABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
-            + LEVEL1 + " TEXT,"
-            + LEVEL2 + " TEXT,"
-            + LEVEL3 + " TEXT,"
-            + LEVEL4 + " TEXT " + ");";
 
-    /*private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "
-            + USERTABLE + "(" + KEY_ID + " INTEGER PRIMARY KEY," + LEVEL1 + " TEXT,"
-            + LEVEL2 + " TEXT"+");"; */
-
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + USERTABLE;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,59 +29,44 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_USER);
+        String createTableSql = "CREATE TABLE " + TABLE_HIGHSCORE + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_SCORE + " TEXT " + ");";
+
+        db.execSQL(createTableSql);
     }
-
-    //to save score in db according to the level
-    public void saveData(int level,String score){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues data = new ContentValues();
-        switch(level){
-            case 1:
-                data.put(LEVEL1, score);
-                break;
-            case 2:
-                data.put(LEVEL2,score);
-                break;
-            case 3:
-                data.put(LEVEL3,score);
-                break;
-            case 4:
-                data.put(LEVEL4,score);
-                break;
-        }
-        db.insert(USERTABLE,null,data);
-        db.close();
-    }
-
-
-    //to get score from db
-    //you can modify this function if you want to get score for a specific level
-    public HashMap<String,String> getData(){
-        HashMap<String,String> scoreMap = new HashMap<>();
-        String selectQuery = "SELECT  * FROM " + USERTABLE ;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-
-                scoreMap.put(LEVEL1,cursor.getString(cursor.getColumnIndex(LEVEL1)));
-                scoreMap.put(LEVEL2,cursor.getString(cursor.getColumnIndex(LEVEL2)));
-                scoreMap.put(LEVEL3,cursor.getString(cursor.getColumnIndex(LEVEL3)));
-                scoreMap.put(LEVEL4,cursor.getString(cursor.getColumnIndex(LEVEL4)));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return scoreMap;
-
-    }
-
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HIGHSCORE);
         onCreate(db);
+    }
+
+    public void addHighScore(int highscore) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SCORE, highscore);
+        db.insert(TABLE_HIGHSCORE,null,values);
+        db.close();
+    }
+
+    public String[] getAllHighScore() {
+        String selectQuery = "SELECT * FROM " + TABLE_HIGHSCORE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int i = 0;
+
+        String[] data = new String[cursor.getCount()];
+        while (cursor.moveToNext()) {
+            data[i] = cursor.getString(1);
+            i = i++;
+        }
+
+        cursor.close();
+        db.close();
+        return data;
     }
 
 }

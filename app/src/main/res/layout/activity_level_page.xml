@@ -80,8 +80,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button4"
@@ -89,18 +89,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:background="#DAA520"
-            android:textSize="20dp"
-            android:text="4"/>
+            android:text="4"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:background="#000000"
-            android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:text="5"/>
+            android:background="#66cdaa"
+            android:text="5"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/button6"
@@ -108,8 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:background="#C0C0C0"
-            android:textSize="20dp"
-            android:text="6"/>
+            android:text="6"
+            android:textSize="20dp" />
 
     </LinearLayout>
 
@@ -148,50 +147,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
         <Button
             android:id="@+id/button10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:background="#9400D3"
-            android:textSize="20dp"
-            android:text="10"/>
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:background="#F5F5F5"
-            android:textSize="20dp"
-            android:text="11"/>
-
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:background="#808080"
-            android:textSize="20dp"
-            android:text="12"/>
-
-    </LinearLayout>
-
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#A52A2A"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="130dp"
-            android:textSize="20dp"
-            android:text="13"/>
+            android:text="Endless"/>
+
 
 
 </LinearLayout>

@@ -8,6 +8,9 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.annotation.IntegerRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,39 +20,41 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Level4 extends AppCompatActivity {
-    TextView tvLives, tvTime, tvScore;
+public class Level10 extends AppCompatActivity {
+
+    TextView tvLives, tvScore, tvHighScore;
     Button btnStart, btnBack;
     ImageView ivBoss1,ivBoss2,ivBoss3,ivBoss4,ivBoss5,ivBoss6,ivBoss7,ivBoss8,ivBoss9,ivBoss10,ivBoss11,ivBoss12;
     ImageView ivHole1,ivHole2,ivHole3,ivHole4,ivHole5,ivHole6,ivHole7,ivHole8,ivHole9,ivHole10,ivHole11,ivHole12;
 
     Random r;
 
-    int score = 0, fps = 800, left = 8, tempileft = 0;
+    int score = 0, fps = 1000, left = 10, tempileft = 0;
 
     int which = 0;
     int whichsave = 0;
+    int highscore;
 
     AnimationDrawable an;
-
-    CountDownTimer runTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level4);
+        setContentView(R.layout.activity_level10);
 
         getSupportActionBar().hide();
 
         tvLives = (TextView)findViewById(R.id.textViewLives);
-        tvTime = (TextView)findViewById(R.id.textViewTimeLimit);
         tvScore = (TextView) findViewById(R.id.textViewScore);
         btnStart = (Button)findViewById(R.id.buttonStart);
         btnBack = (Button)findViewById(R.id.buttonBack);
+        tvHighScore = (TextView) findViewById(R.id.textViewHighScore);
 
         ivBoss1 = (ImageView)findViewById(R.id.imageViewBoss1);
         ivBoss2 = (ImageView)findViewById(R.id.imageViewBoss2);
@@ -99,14 +104,12 @@ public class Level4 extends AppCompatActivity {
         r = new Random();
 
         tvLives.setText(" " + left);
-        tvScore.setText("Get 40");
-        tvTime.setText("Time: 55 sec");
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickSound.start();
-                left = 8;
+                left = 10;
                 tvLives.setText(" " + left);
                 score = 0;
                 tvScore.setText(" "  + score);
@@ -118,32 +121,6 @@ public class Level4 extends AppCompatActivity {
                     }
                 } ,fps);
                 btnStart.setEnabled(false);
-
-                runTimer = new CountDownTimer(55000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60, TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
-                        tvTime.setText(text);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
-                        builder.setTitle("Time's up!");
-                        builder.setMessage("Unfortunately, you lost the game! But do not worry, try again till you succeed!");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        });
-
-                        builder.show();
-                        runTimer.cancel();
-                    }
-                }.start();
 
             }
         });
@@ -296,7 +273,7 @@ public class Level4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clickSound.start();
-                AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Level10.this);
 
                 builder.setTitle("Exit");
                 builder.setMessage("Are you sure you want to exit?");
@@ -313,9 +290,65 @@ public class Level4 extends AppCompatActivity {
             }
         });
 
+        SharedPreferences preferences = this.getSharedPreferences("highscore", Context.MODE_PRIVATE);
+        highscore = preferences.getInt("score",0);
+
+        if (highscore > score) {
+            tvHighScore.setText(Integer.toString(highscore));
+        } else {
+            highscore = score;
+            tvHighScore.setText(Integer.toString(highscore));
+            preferences.edit().putInt("score", highscore).apply();
+        }
     }
 
     private void gamePlay() {
+
+        if(score < 10) {
+            fps = 1000;
+        } else if(score >= 10 && score < 15 ) {
+            fps = 950;
+        } else if(score >= 15 && score < 20 ) {
+            fps = 900;
+        } else if(score >= 20 && score < 25 ) {
+            fps = 850;
+        } else if(score >= 25 && score < 30 ) {
+            fps = 800;
+        } else if(score >= 30 && score < 35 ) {
+            fps = 750;
+        } else if(score >= 35 && score < 40 ) {
+            fps = 700;
+        } else if(score >= 40 && score < 45 ) {
+            fps = 650;
+        } else if(score >= 45 && score < 50 ) {
+            fps = 600;
+        } else if(score >= 50 && score < 55 ) {
+            fps = 550;
+        } else if(score >= 55 && score < 60 ) {
+            fps = 500;
+        } else if(score >= 60 && score < 65 ) {
+            fps = 450;
+        } else if(score >= 65 && score < 70 ) {
+            fps = 400;
+        } else if(score >= 70 && score < 75 ) {
+            fps = 350;
+        } else if(score >= 75 && score < 80 ) {
+            fps = 300;
+        } else {
+            fps = 250;
+        }
+
+        SharedPreferences preferences = this.getSharedPreferences("highscore", Context.MODE_PRIVATE);
+        highscore = preferences.getInt("score",0);
+
+        if (highscore > score) {
+            tvHighScore.setText(Integer.toString(highscore));
+        } else {
+            highscore = score;
+            tvHighScore.setText(Integer.toString(highscore));
+            preferences.edit().putInt("score", highscore).apply();
+        }
+
         an = (AnimationDrawable) ContextCompat.getDrawable(this, R.drawable.anim);
 
         do {
@@ -414,40 +447,22 @@ public class Level4 extends AppCompatActivity {
                 }
 
                 if (left == 0) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Level10.this);
 
-                    builder.setTitle("Game Over");
-                    builder.setMessage("You lost! Don't worry, you can always try again!");
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                        builder.setTitle("Game Over");
+                        builder.setMessage("You gain a total score of " + score + "! Click back!");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
 
-                        }
-                    });
+                            }
+                        });
 
-                    builder.show();
-                    runTimer.onFinish();
-                } else if (score == 40) {
-                    saveData("4", score);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
-                    builder.setTitle("Level 4 Complete!");
-                    builder.setMessage("You have won! You have unlock level 5!");
-                    builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Level4.this, LevelPage.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
+                        builder.show();
 
-                    builder.setCancelable(false);
-                    builder.show();
-                    runTimer.cancel();
-                }
-                else {
+                } else {
                     gamePlay();
                 }
 
@@ -455,18 +470,21 @@ public class Level4 extends AppCompatActivity {
             }
         } ,fps);
 
+
     }
 
-    private void saveData(String level, int score) {
-        SharedPreferences pref = this.getSharedPreferences("score", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pref.edit();
-        edit.putInt(level,score);
-        edit.commit();
-    }
+
+
+    /*public void setHighScore(String result, int highscore) {
+        SharedPreferences prefs = this.getSharedPreferences("highscore", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(result, highscore);
+        editor.commit();
+    }*/
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Level4.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Level10.this);
         builder.setTitle("Exit");
         builder.setMessage("Are you sure you want to exit?");
         builder.setCancelable(false);
@@ -478,5 +496,6 @@ public class Level4 extends AppCompatActivity {
         });
         builder.setNeutralButton("Cancel", null);
         builder.show();
+
     }
 }

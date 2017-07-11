@@ -22,7 +22,12 @@
         <activity android:name=".Level2" />
         <activity android:name=".Level3" />
         <activity android:name=".Level4" />
-        <activity android:name=".Level5"></activity>
+        <activity android:name=".Level5" />
+        <activity android:name=".Level6" />
+        <activity android:name=".Level7" />
+        <activity android:name=".Level8" />
+        <activity android:name=".Level9" />
+        <activity android:name=".Level10" />
     </application>
 
 </manifest>

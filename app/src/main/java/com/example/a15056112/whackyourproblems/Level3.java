@@ -29,7 +29,7 @@ public class Level3 extends AppCompatActivity {
 
     Random r;
 
-    int score = 0, fps = 800, left = 10, tempileft = 0;
+    int score = 0, fps = 850, left = 10, tempileft = 0;
 
     int which = 0;
     int whichsave = 0;
@@ -98,6 +98,10 @@ public class Level3 extends AppCompatActivity {
 
         r = new Random();
 
+        tvLives.setText(" " + left);
+        tvScore.setText("Get 35");
+        tvTime.setText("Time: 60 sec");
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +116,10 @@ public class Level3 extends AppCompatActivity {
                     public void run() {
                         gamePlay();
                     }
-                } ,800);
+                } ,fps);
                 btnStart.setEnabled(false);
 
-                runTimer = new CountDownTimer(55000, 1000) {
+                runTimer = new CountDownTimer(60000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
@@ -424,11 +428,11 @@ public class Level3 extends AppCompatActivity {
 
                     builder.show();
                     runTimer.onFinish();
-                } else if (score == 5) {
+                } else if (score == 35) {
                     saveData("3", score);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level3.this);
                     builder.setTitle("Level 3 Complete!");
-                    builder.setMessage("You have won! You have unlock level 4! You can proceed to Level 4 or go back.");
+                    builder.setMessage("You have won! You have unlock level 4!");
                     builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

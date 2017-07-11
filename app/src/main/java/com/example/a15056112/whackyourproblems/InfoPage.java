@@ -31,11 +31,11 @@ public class InfoPage extends AppCompatActivity {
         tvRule3 = (TextView)findViewById(R.id.textViewRule3);
         tvRule4 = (TextView)findViewById(R.id.textViewRule4);
 
-        tvRule1.setText(Html.fromHtml("<p>Hit as many obstacles that appeared as possible such as strict teachers and boss to achieve the " +
-                "score required to unlock next level.</p>"));
-        tvRule2.setText(Html.fromHtml("<p>Countdown timer gets shorter when playing at higher levels.</p>"));
+        tvRule1.setText(Html.fromHtml("<p>Hit the character that appears from the hole.</p>"));
+        tvRule2.setText(Html.fromHtml("<p>Aim to score the required points to win and unlock the next level.</p>"));
         tvRule3.setText(Html.fromHtml("<p>The game is over when time is up or lives reach 0.</p>"));
-        tvRule4.setText(Html.fromHtml("<p>Aim to score more than 30 points to win and unlock the next level.</p>"));
+        tvRule4.setText(Html.fromHtml("<p>Take note that the countdown timer, lives and score requirement will be set differently " +
+                "on each or some level.</p>"));
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

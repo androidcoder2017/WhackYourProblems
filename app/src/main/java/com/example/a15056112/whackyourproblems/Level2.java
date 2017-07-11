@@ -100,6 +100,10 @@ public class Level2 extends AppCompatActivity {
 
         r = new Random();
 
+        tvLives.setText(" " + left);
+        tvScore.setText("Get 30");
+        tvTime.setText("Time: 60 sec");
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +118,7 @@ public class Level2 extends AppCompatActivity {
                     public void run() {
                         gamePlay();
                     }
-                } ,1000);
+                } ,fps);
                 btnStart.setEnabled(false);
 
                 runTimer = new CountDownTimer(60000, 1000) {
@@ -427,13 +431,11 @@ public class Level2 extends AppCompatActivity {
 
                     builder.show();
                     runTimer.onFinish();
-                } else if (score == 35) {
-                    /*DBHelper db = new DBHelper(Level2.this);
-                    db.saveData(2,"35"); */
+                } else if (score == 30) {
                     saveData("2", score);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level2.this);
                     builder.setTitle("Level 2 Complete!");
-                    builder.setMessage("You have won! You have unlock level 3! You can proceed to Level 3 or go back.");
+                    builder.setMessage("You have won! You have unlock level 3!");
                     builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
