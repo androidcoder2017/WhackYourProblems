@@ -28,6 +28,8 @@
         <activity android:name=".Level8" />
         <activity android:name=".Level9" />
         <activity android:name=".Level10" />
+
+        <service android:enabled="true" android:name=".MusicService" />
     </application>
 
 </manifest>

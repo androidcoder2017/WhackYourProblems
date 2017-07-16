@@ -30,6 +30,20 @@
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:text="Start" />
+
+        <Space
+            android:layout_width="70dp"
+            android:layout_height="0dp"
+
+            />
+
+        <Button
+            android:id="@+id/buttonMute"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right|bottom"
+            android:background="@drawable/mutevolume"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

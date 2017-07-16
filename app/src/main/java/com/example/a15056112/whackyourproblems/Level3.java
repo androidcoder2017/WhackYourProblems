@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
@@ -20,10 +21,11 @@ import android.widget.TextView;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
-public class Level3 extends AppCompatActivity {
+public class Level3 extends AppCompatActivity implements View.OnClickListener {
     TextView tvLives, tvTime, tvScore;
-    Button btnStart, btnBack;
+    Button btnStart, btnBack,btnMute;
     ImageView ivBoss1,ivBoss2,ivBoss3,ivBoss4,ivBoss5,ivBoss6,ivBoss7,ivBoss8,ivBoss9,ivBoss10,ivBoss11,ivBoss12;
     ImageView ivHole1,ivHole2,ivHole3,ivHole4,ivHole5,ivHole6,ivHole7,ivHole8,ivHole9,ivHole10,ivHole11,ivHole12;
 
@@ -35,6 +37,9 @@ public class Level3 extends AppCompatActivity {
     int whichsave = 0;
 
     AnimationDrawable an;
+
+    android.os.Handler handler = new android.os.Handler();
+    Runnable runnable;
 
     CountDownTimer runTimer;
 
@@ -50,6 +55,7 @@ public class Level3 extends AppCompatActivity {
         tvScore = (TextView) findViewById(R.id.textViewScore);
         btnStart = (Button)findViewById(R.id.buttonStart);
         btnBack = (Button)findViewById(R.id.buttonBack);
+        btnMute = (Button)findViewById(R.id.buttonMute);
 
         ivBoss1 = (ImageView)findViewById(R.id.imageViewBoss1);
         ivBoss2 = (ImageView)findViewById(R.id.imageViewBoss2);
@@ -79,9 +85,10 @@ public class Level3 extends AppCompatActivity {
 
         final MediaPlayer whackSound = MediaPlayer.create(this, R.raw.whack);
         final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click2);
+        final MediaPlayer secondRemainingSound = MediaPlayer.create(this, R.raw.secondsremaining);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
+        btnMute.setOnClickListener(this);
 
         ivBoss1.setVisibility(View.INVISIBLE);
         ivBoss2.setVisibility(View.INVISIBLE);
@@ -110,7 +117,7 @@ public class Level3 extends AppCompatActivity {
                 tvLives.setText(" " + left);
                 score = 0;
                 tvScore.setText(" "  + score);
-                android.os.Handler handler = new android.os.Handler();
+
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -119,12 +126,17 @@ public class Level3 extends AppCompatActivity {
                 } ,fps);
                 btnStart.setEnabled(false);
 
-                runTimer = new CountDownTimer(60000, 1000) {
+                runTimer = new CountDownTimer(20000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60, TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
                         tvTime.setText(text);
+
+                        if(millisUntilFinished <= 10000) {
+                            secondRemainingSound.start();
+                            tvTime.setTextColor(Color.RED);
+                        }
                     }
 
                     @Override
@@ -139,9 +151,10 @@ public class Level3 extends AppCompatActivity {
                                 finish();
                             }
                         });
-
+                        handler.removeCallbacks(runnable);
                         builder.show();
                         runTimer.cancel();
+
                     }
                 }.start();
 
@@ -428,6 +441,7 @@ public class Level3 extends AppCompatActivity {
 
                     builder.show();
                     runTimer.onFinish();
+
                 } else if (score == 35) {
                     saveData("3", score);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level3.this);
@@ -477,5 +491,12 @@ public class Level3 extends AppCompatActivity {
         });
         builder.setNeutralButton("Cancel", null);
         builder.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnMute) {
+            stopService(new Intent(this,MusicService.class));
+        }
     }
 }

@@ -14,9 +14,9 @@ import android.widget.Button;
 
 import java.util.HashMap;
 
-public class LevelPage extends AppCompatActivity {
-    Button btnInfo, btnBack, btnLevel1, btnLevel2, btnLevel3, btnLevel4, btnLevel5, btnLevel6, btnLevel7, btnLevel8,
-    btnLevel9, btnLevel10;
+public class LevelPage extends AppCompatActivity implements View.OnClickListener {
+    Button btnInfo, btnBack, btnVolume, btnMute, btnLevel1, btnLevel2, btnLevel3, btnLevel4, btnLevel5, btnLevel6, btnLevel7,
+            btnLevel8, btnLevel9, btnLevel10;
 
     int score = 0;
 
@@ -42,6 +42,8 @@ public class LevelPage extends AppCompatActivity {
         btnLevel9 = (Button) findViewById(R.id.button9);
         btnLevel10 = (Button) findViewById(R.id.button10);
 
+        btnVolume = (Button)findViewById(R.id.buttonVolume);
+        btnMute = (Button)findViewById(R.id.buttonMute);
 
         final int level1Score = getLevelScore("1");
         final int level2Score = getLevelScore("2");
@@ -53,6 +55,8 @@ public class LevelPage extends AppCompatActivity {
         final int level8Score = getLevelScore("8");
         final int level9Score = getLevelScore("9");
 
+        btnVolume.setOnClickListener(this);
+        btnMute.setOnClickListener(this);
 
         btnLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,4 +234,14 @@ public class LevelPage extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v == btnVolume) {
+            startService(new Intent(this,MusicService.class));
+            btnVolume.setEnabled(false);
+        } else {
+            stopService(new Intent(this,MusicService.class));
+            btnVolume.setEnabled(true);
+        }
+    }
 }

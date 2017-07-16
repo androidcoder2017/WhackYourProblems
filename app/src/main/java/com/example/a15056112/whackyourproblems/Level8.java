@@ -21,10 +21,10 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Level8 extends AppCompatActivity {
+public class Level8 extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvLives, tvTime, tvScore;
-    Button btnStart, btnBack;
+    Button btnStart, btnBack, btnMute;
     ImageView ivBoss1,ivBoss2,ivBoss3,ivBoss4,ivBoss5,ivBoss6,ivBoss7,ivBoss8,ivBoss9,ivBoss10,ivBoss11,ivBoss12;
     ImageView ivHole1,ivHole2,ivHole3,ivHole4,ivHole5,ivHole6,ivHole7,ivHole8,ivHole9,ivHole10,ivHole11,ivHole12;
 
@@ -51,6 +51,7 @@ public class Level8 extends AppCompatActivity {
         tvScore = (TextView) findViewById(R.id.textViewScore);
         btnStart = (Button)findViewById(R.id.buttonStart);
         btnBack = (Button)findViewById(R.id.buttonBack);
+        btnMute = (Button)findViewById(R.id.buttonMute);
 
         ivBoss1 = (ImageView)findViewById(R.id.imageViewBoss1);
         ivBoss2 = (ImageView)findViewById(R.id.imageViewBoss2);
@@ -82,7 +83,7 @@ public class Level8 extends AppCompatActivity {
         final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click2);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
+        btnMute.setOnClickListener(this);
 
         ivBoss1.setVisibility(View.INVISIBLE);
         ivBoss2.setVisibility(View.INVISIBLE);
@@ -479,5 +480,12 @@ public class Level8 extends AppCompatActivity {
         builder.setNeutralButton("Cancel", null);
         builder.show();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnMute) {
+            stopService(new Intent(this,MusicService.class));
+        }
     }
 }
