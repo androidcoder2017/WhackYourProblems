@@ -56,11 +56,11 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/buttonMute"
+            android:id="@+id/buttonVolume"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_gravity="right|bottom"
-            android:background="@drawable/mutevolume"
+            android:background="@drawable/maxvolume"
             />
 
         <Space
@@ -69,12 +69,13 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/buttonVolume"
+            android:id="@+id/buttonMute"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_gravity="right|bottom"
-            android:background="@drawable/maxvolume"
-             />
+            android:background="@drawable/mutevolume"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

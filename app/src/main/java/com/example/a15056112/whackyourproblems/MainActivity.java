@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click2);
-        final MediaPlayer backgroundSound = MediaPlayer.create(this, R.raw.musicbackground);
+
+
 
         btnExit = (Button)findViewById(R.id.buttonExit);
         btnInfo = (Button) findViewById(R.id.buttonInfo);
