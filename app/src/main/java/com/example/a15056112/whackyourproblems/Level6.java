@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
@@ -36,6 +37,9 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
     int whichsave = 0;
 
     AnimationDrawable an;
+
+    android.os.Handler handler = new android.os.Handler();
+    Runnable runnable;
 
     CountDownTimer runTimer;
 
@@ -82,6 +86,7 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
 
         final MediaPlayer whackSound = MediaPlayer.create(this, R.raw.whack);
         final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click2);
+        final MediaPlayer secondRemainingSound = MediaPlayer.create(this, R.raw.secondsremaining);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btnMute.setOnClickListener(this);
@@ -102,6 +107,13 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
 
         r = new Random();
 
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                gamePlay();
+            }
+        };
+
         tvLives.setText(" " + left);
         tvScore.setText("Get 50");
         tvTime.setText("Time: 55 sec");
@@ -114,13 +126,9 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
                 tvLives.setText(" " + left);
                 score = 0;
                 tvScore.setText(" "  + score);
-                android.os.Handler handler = new android.os.Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gamePlay();
-                    }
-                } ,fps);
+
+                handler.postDelayed(runnable,fps);
+
                 btnStart.setEnabled(false);
 
                 runTimer = new CountDownTimer(55000, 1000) {
@@ -129,6 +137,11 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
                         String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60, TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
                         tvTime.setText(text);
+
+                        if(millisUntilFinished <= 10000) {
+                            secondRemainingSound.start();
+                            tvTime.setTextColor(Color.RED);
+                        }
                     }
 
                     @Override
@@ -143,7 +156,7 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
                                 finish();
                             }
                         });
-
+                        handler.removeCallbacks(runnable);
                         builder.show();
                         runTimer.cancel();
                     }
@@ -379,8 +392,8 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
 
         an.start();
 
-        final android.os.Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
+
+        runnable = new Runnable() {
             @Override
             public void run() {
 
@@ -457,7 +470,9 @@ public class Level6 extends AppCompatActivity implements View.OnClickListener {
 
 
             }
-        } ,fps);
+        };
+
+        handler.postDelayed(runnable,fps);
 
     }
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
@@ -37,6 +38,10 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
     int whichsave = 0;
 
     AnimationDrawable an;
+
+    android.os.Handler handler = new android.os.Handler();
+    Runnable runnable;
+
     CountDownTimer runTimer;
 
     @Override
@@ -103,6 +108,13 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
 
         r = new Random();
 
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                gamePlay();
+            }
+        };
+
         tvLives.setText(" " + left);
         tvScore.setText("Get 50");
         tvTime.setText("Time: 45 sec");
@@ -114,13 +126,9 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
                 tvLives.setText(" " + left);
                 score = 0;
                 tvScore.setText(" "  + score);
-                android.os.Handler handler = new android.os.Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gamePlay();
-                    }
-                } ,fps);
+
+                handler.postDelayed(runnable,fps);
+
                 btnStart.setEnabled(false);
 
                 runTimer = new CountDownTimer(45000, 1000) {
@@ -132,6 +140,7 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
 
                         if(millisUntilFinished <= 10000) {
                                 secondRemainingSound.start();
+                                tvTime.setTextColor(Color.RED);
                         }
 
                     }
@@ -148,7 +157,7 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
                                 finish();
                             }
                         });
-
+                        handler.removeCallbacks(runnable);
                         builder.show();
                         runTimer.cancel();
                     }
@@ -383,8 +392,7 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
 
         an.start();
 
-        final android.os.Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
+        runnable = new Runnable() {
             @Override
             public void run() {
 
@@ -441,7 +449,7 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
                     saveData("9", score);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Level9.this);
                     builder.setTitle("Level 9 Complete!");
-                    builder.setMessage("You have won! You have unlock level 10!");
+                    builder.setMessage("You have won! You have unlock the Endless level!");
                     builder.setPositiveButton("Unlock", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -461,7 +469,9 @@ public class Level9 extends AppCompatActivity implements View.OnClickListener {
 
 
             }
-        } ,fps);
+        };
+
+        handler.postDelayed(runnable,fps);
 
     }
 

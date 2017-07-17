@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
@@ -37,6 +38,9 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
     int whichsave = 0;
 
     AnimationDrawable an;
+
+    android.os.Handler handler = new android.os.Handler();
+    Runnable runnable;
 
     CountDownTimer runTimer;
 
@@ -104,6 +108,13 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
 
         r = new Random();
 
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                gamePlay();
+            }
+        };
+
         tvLives.setText(" " + left);
         tvScore.setText("Get 30");
         tvTime.setText("Time: 60 sec");
@@ -116,13 +127,9 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
                 tvLives.setText(" " + left);
                 score = 0;
                 tvScore.setText(" "  + score);
-                android.os.Handler handler = new android.os.Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gamePlay();
-                    }
-                } ,fps);
+
+               handler.postDelayed(runnable,fps);
+
                 btnStart.setEnabled(false);
 
                 runTimer = new CountDownTimer(60000, 1000) {
@@ -134,6 +141,7 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
 
                         if(millisUntilFinished <= 10000) {
                             secondRemainingSound.start();
+                            tvTime.setTextColor(Color.RED);
                         }
                     }
 
@@ -149,7 +157,7 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
                                 finish();
                             }
                         });
-
+                        handler.removeCallbacks(runnable);
                         builder.show();
                         runTimer.cancel();
                     }
@@ -385,8 +393,8 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
 
         an.start();
 
-        final android.os.Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
+
+        runnable = new Runnable() {
             @Override
             public void run() {
 
@@ -462,7 +470,9 @@ public class Level2 extends AppCompatActivity implements View.OnClickListener {
 
 
             }
-        }, fps);
+        };
+
+        handler.postDelayed(runnable,fps);
 
     }
 

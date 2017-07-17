@@ -116,7 +116,7 @@ public class Level3 extends AppCompatActivity implements View.OnClickListener {
 
         tvLives.setText(" " + left);
         tvScore.setText("Get 35");
-        tvTime.setText("Time: 60 sec");
+        tvTime.setText("Time: 55 sec");
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +138,7 @@ public class Level3 extends AppCompatActivity implements View.OnClickListener {
 
                 btnStart.setEnabled(false);
 
-                runTimer = new CountDownTimer(20000, 1000) {
+                runTimer = new CountDownTimer(55000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         String text = String.format(Locale.getDefault(), "%02d min: %02d sec",
@@ -399,8 +399,8 @@ public class Level3 extends AppCompatActivity implements View.OnClickListener {
 
         an.start();
 
-        final android.os.Handler handler = new android.os.Handler();
-        handler.postDelayed(new Runnable() {
+
+        runnable = new Runnable() {
             @Override
             public void run() {
 
@@ -478,7 +478,10 @@ public class Level3 extends AppCompatActivity implements View.OnClickListener {
 
 
             }
-        } ,fps);
+        };
+
+        handler.postDelayed(runnable,fps);
+
 
     }
 
