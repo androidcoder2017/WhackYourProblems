@@ -148,21 +148,21 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss3"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
     </LinearLayout>
 
@@ -205,21 +205,21 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss5"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss6"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
     </LinearLayout>
 
@@ -262,21 +262,21 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss8"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss9"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
     </LinearLayout>
 
@@ -319,21 +319,21 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss11"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
         <ImageView
             android:id="@+id/imageViewBoss12"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/bossh" />
     </LinearLayout>
 

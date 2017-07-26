@@ -22,6 +22,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     Button btnExit, btnInfo, btnVolume, btnPlay, btnMute;
 
+    boolean isPreseed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPlay = (Button) findViewById(R.id.buttonPlay);
         btnMute = (Button)findViewById(R.id.buttonMute);
 
+
+
+
+        btnVolume.setBackgroundResource(R.drawable.mutevolume);
         btnVolume.setOnClickListener(this);
 
-        btnMute.setOnClickListener(this);
+        //btnMute.setOnClickListener(this);
 
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +118,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.finish();
     }
 
+
     @Override
+    public void onClick(View v) {
+        if (isPreseed) {
+            btnVolume.setBackgroundResource(R.drawable.mutevolume);
+            Intent intent = new Intent(MainActivity.this, MusicService.class);
+            stopService(intent);
+
+        } else {
+            btnVolume.setBackgroundResource(R.drawable.maxvolume);
+            Intent intent = new Intent(MainActivity.this, MusicService.class);
+            startService(intent);
+
+            isPreseed = ! isPreseed;
+        }
+    }
+
+    /*@Override
     public void onClick(View v) {
         if (v == btnVolume) {
             startService(new Intent(this, MusicService.class));
@@ -121,5 +144,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             stopService(new Intent(this, MusicService.class));
             btnVolume.setEnabled(true);
         }
-    }
+    } */
 }

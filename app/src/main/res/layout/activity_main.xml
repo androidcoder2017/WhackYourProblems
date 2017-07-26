@@ -60,7 +60,7 @@
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_gravity="right|bottom"
-            android:background="@drawable/maxvolume"
+            android:background="@drawable/btn_selected"
             />
 
         <Space
