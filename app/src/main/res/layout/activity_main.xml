@@ -63,18 +63,6 @@
             android:background="@drawable/btn_selected"
             />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/buttonMute"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right|bottom"
-            android:background="@drawable/mutevolume"
-            />
 
     </LinearLayout>
 

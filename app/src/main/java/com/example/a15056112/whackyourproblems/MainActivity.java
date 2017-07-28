@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
-    Button btnExit, btnInfo, btnVolume, btnPlay, btnMute;
+    Button btnExit, btnInfo, btnVolume, btnPlay;
 
     boolean isPreseed = false;
 
@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnInfo = (Button) findViewById(R.id.buttonInfo);
         btnVolume = (Button)findViewById(R.id.buttonVolume);
         btnPlay = (Button) findViewById(R.id.buttonPlay);
-        btnMute = (Button)findViewById(R.id.buttonMute);
-
-
-
 
         btnVolume.setBackgroundResource(R.drawable.mutevolume);
         btnVolume.setOnClickListener(this);
@@ -131,18 +127,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, MusicService.class);
             startService(intent);
 
-            isPreseed = ! isPreseed;
-        }
-    }
 
-    /*@Override
-    public void onClick(View v) {
-        if (v == btnVolume) {
-            startService(new Intent(this, MusicService.class));
-            btnVolume.setEnabled(false);
-        } else {
-            stopService(new Intent(this, MusicService.class));
-            btnVolume.setEnabled(true);
         }
-    } */
+        isPreseed = ! isPreseed;
+    }
 }

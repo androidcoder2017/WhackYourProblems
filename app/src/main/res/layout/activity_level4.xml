@@ -19,23 +19,9 @@
             android:layout_height="40dp"
             android:background="@drawable/back"/>
 
-        <Space
-            android:layout_width="40dp"
-            android:layout_height="0dp"
-
-            />
-
-        <Button
-            android:id="@+id/buttonVolume"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@drawable/maxvolume"
-            />
-
-
 
         <Space
-            android:layout_width="20dp"
+            android:layout_width="90dp"
             android:layout_height="0dp"
 
             />
@@ -47,18 +33,18 @@
             android:text="Start" />
 
         <Space
-            android:layout_width="20dp"
+            android:layout_width="60dp"
             android:layout_height="0dp"
 
             />
 
         <Button
-            android:id="@+id/buttonMute"
+            android:id="@+id/buttonVolume"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:background="@drawable/mutevolume"
+            android:layout_gravity="right|bottom"
+            android:background="@drawable/btn_selected"
             />
-
     </LinearLayout>
 
     <LinearLayout

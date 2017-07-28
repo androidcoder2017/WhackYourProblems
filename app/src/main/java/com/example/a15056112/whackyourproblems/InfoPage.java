@@ -11,11 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class InfoPage extends AppCompatActivity {
+public class InfoPage extends AppCompatActivity implements View.OnClickListener {
     TextView tvRule1, tvRule2, tvRule3, tvRule4;
-    Button btnBack;
+    Button btnBack, btnVolume;
 
-
+    boolean isPreseed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,7 @@ public class InfoPage extends AppCompatActivity {
         tvRule2 = (TextView)findViewById(R.id.textViewRule2);
         tvRule3 = (TextView)findViewById(R.id.textViewRule3);
         tvRule4 = (TextView)findViewById(R.id.textViewRule4);
+        btnVolume = (Button)findViewById(R.id.buttonVolume);
 
         tvRule1.setText(Html.fromHtml("<p>Hit the character that appears from the hole.</p>"));
         tvRule2.setText(Html.fromHtml("<p>Aim to score the required points to win and unlock the next level.</p>"));
@@ -45,10 +46,30 @@ public class InfoPage extends AppCompatActivity {
             }
         });
 
+        btnVolume.setBackgroundResource(R.drawable.mutevolume);
+        btnVolume.setOnClickListener(this);
+
     }
 
     @Override
     public void onBackPressed() {
         InfoPage.super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (isPreseed) {
+            btnVolume.setBackgroundResource(R.drawable.mutevolume);
+            Intent intent = new Intent(InfoPage.this, MusicService.class);
+            stopService(intent);
+
+        } else {
+            btnVolume.setBackgroundResource(R.drawable.maxvolume);
+            Intent intent = new Intent(InfoPage.this, MusicService.class);
+            startService(intent);
+
+
+        }
+        isPreseed = ! isPreseed;
     }
 }

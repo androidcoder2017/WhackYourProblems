@@ -31,11 +31,13 @@ import java.util.logging.LogRecord;
 
 public class Level1 extends AppCompatActivity implements View.OnClickListener {
     TextView tvLives, tvTime, tvScore;
-    Button btnStart, btnBack,btnMute, btnVolume;
+    Button btnStart, btnBack, btnVolume;
     ImageView ivBoss1,ivBoss2,ivBoss3,ivBoss4,ivBoss5,ivBoss6,ivBoss7,ivBoss8,ivBoss9,ivBoss10,ivBoss11,ivBoss12;
     ImageView ivHole1,ivHole2,ivHole3,ivHole4,ivHole5,ivHole6,ivHole7,ivHole8,ivHole9,ivHole10,ivHole11,ivHole12;
 
     Random r;
+
+    boolean isPreseed = false;
 
     int score = 0, fps = 1000, left = 10, tempileft = 0;
 
@@ -61,7 +63,6 @@ public class Level1 extends AppCompatActivity implements View.OnClickListener {
         tvScore = (TextView) findViewById(R.id.textViewScore);
         btnStart = (Button)findViewById(R.id.buttonStart);
         btnBack = (Button)findViewById(R.id.buttonBack);
-        btnMute = (Button)findViewById(R.id.buttonMute);
         btnVolume = (Button)findViewById(R.id.buttonVolume);
 
         ivBoss1 = (ImageView)findViewById(R.id.imageViewBoss1);
@@ -95,7 +96,8 @@ public class Level1 extends AppCompatActivity implements View.OnClickListener {
         final MediaPlayer secondRemainingSound = MediaPlayer.create(this, R.raw.secondsremaining);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        btnMute.setOnClickListener(this);
+
+        btnVolume.setBackgroundResource(R.drawable.mutevolume);
         btnVolume.setOnClickListener(this);
 
         ivBoss1.setVisibility(View.INVISIBLE);
@@ -508,12 +510,18 @@ public class Level1 extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btnVolume) {
-            startService(new Intent(this,MusicService.class));
-            btnVolume.setEnabled(false);
+        if (isPreseed) {
+            btnVolume.setBackgroundResource(R.drawable.mutevolume);
+            Intent intent = new Intent(Level1.this, MusicService.class);
+            stopService(intent);
+
         } else {
-            stopService(new Intent(this,MusicService.class));
-            btnVolume.setEnabled(true);
+            btnVolume.setBackgroundResource(R.drawable.maxvolume);
+            Intent intent = new Intent(Level1.this, MusicService.class);
+            startService(intent);
+
+
         }
+        isPreseed = ! isPreseed;
     }
 }
