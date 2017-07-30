@@ -1,6 +1,7 @@
 package com.example.a15056112.whackyourproblems;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -44,6 +45,12 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String,Integer>> {
         HashMap<String,Integer> hashmap = alScore.get(position);
         tvGameNumber.setText("Game Number: " + String.valueOf(hashmap.get("id")));
         tvScore.setText("Score: " + String.valueOf(hashmap.get("score")));
+
+        if (position % 2 == 0) {
+            view.setBackgroundColor(Color.RED);
+        } else {
+            view.setBackgroundColor(Color.WHITE);
+        }
 
         return  view;
     }
