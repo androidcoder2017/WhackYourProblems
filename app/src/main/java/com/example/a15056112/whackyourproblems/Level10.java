@@ -309,6 +309,9 @@ public class Level10 extends AppCompatActivity implements View.OnClickListener{
 
     private void gamePlay() {
 
+        final DBHelper dbHelper = new DBHelper(Level10.this);
+
+
         if(score < 10) {
             fps = 1000;
         } else if(score >= 10 && score < 15 ) {
@@ -460,12 +463,16 @@ public class Level10 extends AppCompatActivity implements View.OnClickListener{
                         builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dbHelper.addHighScore(score);
+                                dbHelper.close();
                                 finish();
 
                             }
                         });
 
                         builder.show();
+
+
 
                 } else {
                     gamePlay();
@@ -477,15 +484,6 @@ public class Level10 extends AppCompatActivity implements View.OnClickListener{
 
 
     }
-
-
-
-    /*public void setHighScore(String result, int highscore) {
-        SharedPreferences prefs = this.getSharedPreferences("highscore", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(result, highscore);
-        editor.commit();
-    }*/
 
     @Override
     public void onBackPressed() {

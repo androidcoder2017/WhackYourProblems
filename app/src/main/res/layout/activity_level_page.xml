@@ -130,14 +130,29 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <Button
             android:id="@+id/button10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#9400D3"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="20dp"
             android:text="Endless"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scoreRecord"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="#9400D3"
+            android:text="Endless Level Score Records"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

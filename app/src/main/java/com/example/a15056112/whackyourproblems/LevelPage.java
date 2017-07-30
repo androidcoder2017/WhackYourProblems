@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class LevelPage extends AppCompatActivity implements View.OnClickListener {
     Button btnInfo, btnBack, btnVolume, btnLevel1, btnLevel2, btnLevel3, btnLevel4, btnLevel5, btnLevel6, btnLevel7,
-            btnLevel8, btnLevel9, btnLevel10;
+            btnLevel8, btnLevel9, btnLevel10, btnScoreRecords;
 
     int score = 0;
     boolean isPreseed = false;
@@ -42,6 +42,7 @@ public class LevelPage extends AppCompatActivity implements View.OnClickListener
         btnLevel8 = (Button) findViewById(R.id.button8);
         btnLevel9 = (Button) findViewById(R.id.button9);
         btnLevel10 = (Button) findViewById(R.id.button10);
+        btnScoreRecords = (Button)findViewById(R.id.scoreRecord);
 
         btnVolume = (Button)findViewById(R.id.buttonVolume);
 
@@ -54,6 +55,8 @@ public class LevelPage extends AppCompatActivity implements View.OnClickListener
         final int level7Score = getLevelScore("7");
         final int level8Score = getLevelScore("8");
         final int level9Score = getLevelScore("9");
+
+
 
         btnVolume.setBackgroundResource(R.drawable.mutevolume);
         btnVolume.setOnClickListener(this);
@@ -190,6 +193,8 @@ public class LevelPage extends AppCompatActivity implements View.OnClickListener
 
         if (level9Score == 50) {
             btnLevel10.setEnabled(true);
+            btnScoreRecords.setEnabled(true);
+
             btnLevel10.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -199,8 +204,18 @@ public class LevelPage extends AppCompatActivity implements View.OnClickListener
 
                 }
             });
+
+            btnScoreRecords.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickSound.start();
+                    Intent intent = new Intent(LevelPage.this, ScoreRecords.class);
+                    startActivity(intent);
+                }
+            });
         } else {
             btnLevel10.setEnabled(false);
+            btnScoreRecords.setEnabled(false);
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {

@@ -2,11 +2,13 @@ package com.example.a15056112.whackyourproblems;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTableSql = "CREATE TABLE " + TABLE_HIGHSCORE + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_SCORE + " TEXT " + ");";
+                + COLUMN_SCORE + " INTEGER " + ");";
 
         db.execSQL(createTableSql);
     }
@@ -51,22 +53,28 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String[] getAllHighScore() {
-        String selectQuery = "SELECT * FROM " + TABLE_HIGHSCORE;
-        SQLiteDatabase db = this.getWritableDatabase();
+
+    public ArrayList<HashMap<String,Integer>> getAllScores() {
+        ArrayList<HashMap<String,Integer>> scoresList = new ArrayList<>();
+
+        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_SCORE + " FROM " + TABLE_HIGHSCORE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        int i = 0;
-
-        String[] data = new String[cursor.getCount()];
-        while (cursor.moveToNext()) {
-            data[i] = cursor.getString(1);
-            i = i++;
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, Integer> hashMap = new HashMap<>();
+                int id = cursor.getInt(0);
+                int score = cursor.getInt(1);
+                hashMap.put("id", id);
+                hashMap.put("score", score);
+                scoresList.add(hashMap);
+            } while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
-        return data;
+        return scoresList;
     }
 
 }
