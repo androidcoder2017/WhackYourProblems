@@ -82,7 +82,7 @@ public class ScoreRecords extends AppCompatActivity {
                         gamePlayedSearch.add(game);
                     }
                 }
-                aa = new ScoreAdapter(ScoreRecords.this, R.layout.scorerow, al);
+                aa = new ScoreAdapter(ScoreRecords.this, R.layout.scorerow, gamePlayedSearch);
                 lvSearch.setAdapter(aa);
 
                // aa.getFilter().filter(newText);
