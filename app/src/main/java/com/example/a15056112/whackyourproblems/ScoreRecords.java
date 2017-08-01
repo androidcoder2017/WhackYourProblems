@@ -27,6 +27,7 @@ public class ScoreRecords extends AppCompatActivity {
     ArrayList<HashMap<String,Integer>> al;
 
     Button btnBack;
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class ScoreRecords extends AppCompatActivity {
         btnBack = (Button)findViewById(R.id.buttonBack);
         lv = (ListView)findViewById(R.id.lvScoreRecord);
 
-        DBHelper db = new DBHelper(ScoreRecords.this);
+        db = new DBHelper(ScoreRecords.this);
         al = db.getAllScores();
 
         aa = new ScoreAdapter(this, R.layout.scorerow, al);
@@ -55,42 +56,6 @@ public class ScoreRecords extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.item_search);
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView(searchItem);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                ArrayList<HashMap<String,Integer>> gamePlayedSearch = new ArrayList<HashMap<String, Integer>>();
-                ListView lvSearch;
-
-                lvSearch = (ListView)findViewById(R.id.lvScoreRecord);
-                for (HashMap<String,Integer> game: al) {
-                    if (game.get("id").equals(newText)) {
-                        gamePlayedSearch.add(game);
-                    }
-                }
-                aa = new ScoreAdapter(ScoreRecords.this, R.layout.scorerow, gamePlayedSearch);
-                lvSearch.setAdapter(aa);
-
-               // aa.getFilter().filter(newText);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
     }
 
 }
