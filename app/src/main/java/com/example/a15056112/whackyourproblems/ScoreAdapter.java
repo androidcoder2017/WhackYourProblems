@@ -45,7 +45,7 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String,Integer>> {
         HashMap<String,Integer> hashmap = alScore.get(position);
         tvGameNumber.setText("Game Number: " + String.valueOf(hashmap.get("id")));
         tvScore.setText("Score: " + String.valueOf(hashmap.get("score")));
-        
+
         view.setBackgroundColor(Color.WHITE);
 
 
